@@ -6,6 +6,14 @@
     <title>Banca Geral - Distribuição</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
+        .containers-wrapper {
+        display: flex;
+        flex-wrap: wrap; /* Permite que os containers quebrem para a linha de baixo se necessário */
+        justify-content: center; /* Centraliza os itens horizontalmente */
+        gap: 20px; /* Espaçamento entre os containers */
+        max-width: 100%; /* Para garantir que o conteúdo não estoure o layout */
+        }
+
         body {
             background-color: #151515;
             color: white;
@@ -21,8 +29,30 @@
             text-align: center;
             color: #f7a600;
         }
+        
+        .container-wrapper {
+        display: flex; /* Habilita o layout Flexbox */
+        justify-content: space-between; /* Espaçamento entre os containers */
+        flex-wrap: wrap; /* Permite que os containers quebrem para a próxima linha */
+        gap: 20px; /* Espaço entre os contêineres */
+        max-width: 900px; /* Define uma largura máxima para o wrapper */
+        width: 100%; /* Garante que o wrapper use 100% da largura disponível */
+}
 
         .container {
+            max-width: 700px;
+            width: 100%;
+            margin: 20px auto;
+            padding: 15px;
+            background: linear-gradient(145deg, #151515, #333333);
+            border-radius: 40px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container2 {
             max-width: 900px;
             width: 100%;
             margin: 20px auto;
@@ -73,75 +103,75 @@
 <body>
     <h1>Banca Geral - Distribuição</h1>
 
-    <div class="container">
+    <div class="container2">
         <canvas id="bancaGeralChart"></canvas>
         <div class="info">
             <p>Aportes: $578,44</p>
-            <p>Lucro: +$44,26</p>
+            <p>Lucros: +$44,26</p>
             <p>Total: $616,30</p>
         </div>
     </div>
 
     <h2>Participantes</h2>
     <div class="container">
-    <div class="info">
+    <div class="container-wrapper">
         <p style="font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Jorge</p>
         <p>Aportes: $190,13</p>
-        <p>Lucro: +$26,19</p>
+        <p>Lucros: +$26,19</p>
         <p>Total: $216,32</p>
     </div>
 </div>
 
 <div class="container">
-    <div class="info">
+    <div class="container-wrapper">
         <p style="font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Alef</p>
         <p>Aportes: $44,76</p>
-        <p>Lucro: +$2,72</p>
+        <p>Lucros: +$2,72</p>
         <p>Total: $47,48</p>
     </div>
 </div>
 
 <div class="container">
-    <div class="info">
+    <div class="container-wrapper">
         <p style="font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Carson</p>
         <p>Aportes: $305,13</p>
-        <p>Lucro: +$8,06</p>
+        <p>Lucros: +$8,06</p>
         <p>Total: $313,19</p>
     </div>
 </div>
 
 <div class="container">
-    <div class="info">
+    <div class="container-wrapper">
         <p style="font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Miguel</p>
         <p>Aportes: $9,16</p>
-        <p>Lucro: $0,21</p>
+        <p>Lucros: $0,21</p>
         <p>Total: $9,37</p>
     </div>
 </div>
 
 <div class="container">
-    <div class="info">
+    <div class="container-wrapper">
         <p style="font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Eduardo</p>
         <p>Aportes: $10,94</p>
-        <p>Lucro: +$0,24</p>
+        <p>Lucros: +$0,24</p>
         <p>Total: $11,18</p>
     </div>
 </div>
 
 <div class="container">
-    <div class="info">
+    <div class="container-wrapper">
         <p style="font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Bernardo</p>
         <p>Aportes: $9,16</p>
-        <p>Lucro: +$0,21</p>
+        <p>Lucros: +$0,21</p>
         <p>Total: $9,37</p>
     </div>
 </div>
 
 <div class="container">
-    <div class="info">
+    <div class="container-wrapper">
         <p style="font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Juan</p>
         <p>Aportes: $9,16</p>
-        <p>Lucro: +$0,21</p>
+        <p>Lucros: +$0,21</p>
         <p>Total: $9,37</p>
     </div>
 </div>
