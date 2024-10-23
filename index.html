@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banca Geral - Distribuição</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #151515;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #f7a600;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            margin: 20px auto;
+            padding: 20px;
+            background: linear-gradient(145deg, #151515, #333333);
+            border-radius: 20px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        canvas {
+            width: 100% !important;
+            height: 400px !important;
+            background: linear-gradient(to bottom, #151515, #2e2e2e);
+            border-radius: 15px;
+        }
+
+        .info {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #ffffff;
+            text-align: left;
+        }
+
+        .info p {
+            margin: 5px 0;
+        }
+
+        @media (max-width: 600px) {
+            canvas {
+                height: 300px !important;
+            }
+
+            .info p {
+                font-size: 12px;
+            }
+        }
+
+        @media (min-width: 900px) {
+            .container {
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Banca Geral - Distribuição</h1>
+
+    <div class="container">
+        <canvas id="bancaGeralChart"></canvas>
+        <div class="info">
+            <p>Aportes: $578,44</p>
+            <p>Lucro: $35,36</p>
+            <p>Total: $613,80</p>
+        </div>
+    </div>
+
+    <h2>Participantes</h2>
+    <div class="container">
+        <div class="info">
+            <p>Jorge:</p>
+            <p>Aportes: $190,13</p>
+            <p>Lucro: $26,19</p>
+            <p>Total: $216,32</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="info">
+            <p>Alef:</p>
+            <p>Aportes: $44,76</p>
+            <p>Lucro: $2,72</p>
+            <p>Total: $47,48</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="info">
+            <p>Carson:</p>
+            <p>Aportes: $305,13</p>
+            <p>Lucro: $8,06</p>
+            <p>Total: $313,19</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="info">
+            <p>Miguel:</p>
+            <p>Aportes: $9,16</p>
+            <p>Lucro: $0,21</p>
+            <p>Total: $9,37</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="info">
+            <p>Eduardo:</p>
+            <p>Aportes: $10,94</p>
+            <p>Lucro: $0,24</p>
+            <p>Total: $11,18</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="info">
+            <p>Bernardo:</p>
+            <p>Aportes: $9,16</p>
+            <p>Lucro: $0,21</p>
+            <p>Total: $9,37</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="info">
+            <p>Juan:</p>
+            <p>Aportes: $9,16</p>
+            <p>Lucro: $0,21</p>
+            <p>Total: $9,37</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const labels = [
+            '23/08/24', '24/08/24', '25/08/24', '26/08/24', '27/08/24', '28/08/24', '29/08/24', '30/08/24',
+            '31/08/24', '01/09/24', '02/09/24', '03/09/24', '04/09/24', '05/09/24', '06/09/24', '07/09/24',
+            '08/09/24', '09/09/24', '10/09/24', '11/09/24', '12/09/24', '13/09/24', '14/09/24', '15/09/24',
+            '16/09/24', '17/09/24', '18/09/24', '19/09/24', '20/09/24', '21/09/24', '22/09/24', '23/09/24',
+            '24/09/24', '25/09/24', '26/09/24', '27/09/24', '28/09/24', '29/09/24', '30/09/24', '01/10/24',
+            '02/10/24', '03/10/24', '04/10/24', '05/10/24', '06/10/24', '07/10/24', '08/10/24', '09/10/24',
+            '10/10/24', '11/10/24', '12/10/24', '13/10/24', '14/10/24', '15/10/24', '16/10/24', '17/10/24',
+            '18/10/24', '19/10/24', '20/10/24', '21/10/24', '22/10/24', '23/10/24', '24/10/24'
+        ];
+
+        const geralData = [
+            0.42, 0.47, 0.58, 1.06, 1.57, 1.83, 1.95, 2.28, 2.28, 2.67, 2.67, 2.67, 
+            4.47, 4.57, 5.13, 5.66, 6.15, 7.23, 7.23, 7.64, 8.09, 8.57, 8.57, 9.12, 
+            9.22, 9.22, 9.68, 10.36, 10.61, 10.96, 11.02, 11.8, 12.39, 12.5, 13, 13.62, 
+            14.45, 14.59, 14.59, 22.8, 23.43, 23.91, 26.11, 26.24, 26.88, 28.03, 28.03, 
+            29.46, 29.46, 31.06, 31.71, 31.98, 32.84, 33.56, 34.31, 34.47, 35.07, 35.36, 
+            35.36, 41.72, 44.26
+        ];
+
+        const personalConfig = (color, data, backgroundColor) => ({
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: data,
+                    borderColor: color,
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 0,
+                    backgroundColor: backgroundColor,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: 'index',
+                    intersect: false
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.dataset.label}: R$${context.raw.toFixed(2)}`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        title: { display: true, text: 'Data' },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                    },
+                    y: {
+                        title: { display: true, text: 'Valor (R$)' },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        beginAtZero: true,
+                        ticks: {
+                            color: 'white'
+                        }
+                    }
+                }
+            }
+        });
+
+        const bancaGeralChart = new Chart(document.getElementById('bancaGeralChart').getContext('2d'), personalConfig('rgba(255, 204, 0, 1)', geralData, 'rgba(255, 204, 0, 0.4)'));
+    </script>
+</body>
+</html>
