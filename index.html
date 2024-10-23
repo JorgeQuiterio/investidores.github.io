@@ -85,7 +85,7 @@
     <h2>Participantes</h2>
     <div class="container">
         <div class="info">
-            <p>Jorge:</p>
+            <p>Jorge</p>
             <p>Aportes: $190,13</p>
             <p>Lucro: $26,19</p>
             <p>Total: $216,32</p>
@@ -94,7 +94,7 @@
 
     <div class="container">
         <div class="info">
-            <p>Alef:</p>
+            <p>Alef</p>
             <p>Aportes: $44,76</p>
             <p>Lucro: $2,72</p>
             <p>Total: $47,48</p>
@@ -103,7 +103,7 @@
 
     <div class="container">
         <div class="info">
-            <p>Carson:</p>
+            <p>Carson</p>
             <p>Aportes: $305,13</p>
             <p>Lucro: $8,06</p>
             <p>Total: $313,19</p>
@@ -112,7 +112,7 @@
 
     <div class="container">
         <div class="info">
-            <p>Miguel:</p>
+            <p>Miguel</p>
             <p>Aportes: $9,16</p>
             <p>Lucro: $0,21</p>
             <p>Total: $9,37</p>
@@ -121,7 +121,7 @@
 
     <div class="container">
         <div class="info">
-            <p>Eduardo:</p>
+            <p>Eduardo</p>
             <p>Aportes: $10,94</p>
             <p>Lucro: $0,24</p>
             <p>Total: $11,18</p>
@@ -130,7 +130,7 @@
 
     <div class="container">
         <div class="info">
-            <p>Bernardo:</p>
+            <p>Bernardo</p>
             <p>Aportes: $9,16</p>
             <p>Lucro: $0,21</p>
             <p>Total: $9,37</p>
@@ -139,7 +139,7 @@
 
     <div class="container">
         <div class="info">
-            <p>Juan:</p>
+            <p>Juan</p>
             <p>Aportes: $9,16</p>
             <p>Lucro: $0,21</p>
             <p>Total: $9,37</p>
@@ -168,12 +168,15 @@
             35.36, 41.72, 44.26
         ];
 
-        const personalConfig = (color, data, backgroundColor) => ({
+        // Calculando os lucros diários
+        const dailyData = geralData.map((value, index, array) => index === 0 ? value : value - array[index - 1]);
+
+        const personalConfig = (color, data, backgroundColor, label) => ({
             type: 'line',
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'Lucros', // Adicionando o label 'Lucros'
+                    label: label, // Adicionando o label como parâmetro
                     data: data,
                     borderColor: color,
                     borderWidth: 2,
@@ -191,11 +194,11 @@
                     intersect: false
                 },
                 plugins: {
-                    legend: { display: false },
+                    legend: { display: true }, // Exibir a legenda
                     tooltip: {
                         callbacks: {
                             label: function(context) {
-                                return `${context.dataset.label}: R$${context.raw.toFixed(2)}`;
+                                return `${context.dataset.label}: $${context.raw.toFixed(2)}`;
                             }
                         }
                     }
@@ -206,7 +209,7 @@
                         grid: { color: 'rgba(255, 255, 255, 0.1)' }
                     },
                     y: {
-                        title: { display: true, text: 'Valor (R$)' },
+                        title: { display: true, text: 'Valor ($)' },
                         grid: { color: 'rgba(255, 255, 255, 0.1)' },
                         beginAtZero: true,
                         ticks: {
@@ -217,7 +220,65 @@
             }
         });
 
-        const bancaGeralChart = new Chart(document.getElementById('bancaGeralChart').getContext('2d'), personalConfig('rgba(255, 204, 0, 1)', geralData, 'rgba(255, 204, 0, 0.4)'));
+        const ctx = document.getElementById('bancaGeralChart').getContext('2d');
+        const bancaGeralChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'Lucros Totais',
+                        data: geralData,
+                        borderColor: 'rgba(255, 204, 0, 1)',
+                        backgroundColor: 'rgba(255, 204, 0, 0.4)',
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 0,
+                    },
+                    {
+                        label: 'Lucros Diários',
+                        data: dailyData,
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.4)',
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 0,
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: 'index',
+                    intersect: false
+                },
+                plugins: {
+                    legend: { display: true }, // Exibir a legenda
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.dataset.label}: $${context.raw.toFixed(2)}`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        title: { display: true, text: 'Data' },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                    },
+                    y: {
+                        title: { display: true, text: 'Valor ($)' },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        beginAtZero: true,
+                        ticks: {
+                            color: 'white'
+                        }
+                    }
+                }
+            }
+        });
     </script>
 </body>
 </html>
