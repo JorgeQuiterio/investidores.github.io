@@ -297,6 +297,15 @@
           });
   
           const ctx = document.getElementById('bancaGeralChart').getContext('2d');
+
+          const gradient = ctx.createLinearGradient(0, 0, 0, 405);
+          gradient.addColorStop(0, 'rgba(255, 204, 0, 0.2)');
+          gradient.addColorStop(1, 'rgba(255, 204, 0, 0)');
+
+          const gradient2 = ctx.createLinearGradient(0, 0, 0, 480);
+          gradient2.addColorStop(0, 'rgba(36, 175, 108, 0.4)');
+          gradient2.addColorStop(1, 'rgba(36, 175, 108, 0)');
+
           const bancaGeralChart = new Chart(ctx, {
               type: 'line',
               data: {
@@ -306,7 +315,7 @@
                           label: 'Lucros Totais',
                           data: geralData,
                           borderColor: 'rgba(255, 204, 0, 1)',
-                          backgroundColor: 'rgba(255, 204, 0, 0.4)',
+                          backgroundColor: gradient,
                           fill: true,
                           tension: 0.4,
                           pointRadius: 0,
@@ -314,8 +323,8 @@
                       {
                           label: 'Lucros Diários',
                           data: dailyData,
-                          borderColor: 'rgba(75, 192, 192, 1)',
-                          backgroundColor: 'rgba(75, 192, 192, 0.4)',
+                          borderColor: 'rgba(36, 175, 108, 1)',
+                          backgroundColor: gradient2,
                           fill: true,
                           tension: 0.4,
                           pointRadius: 0,
