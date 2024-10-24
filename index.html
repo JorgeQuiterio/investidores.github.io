@@ -7,11 +7,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         .containers-wrapper {
-        display: flex;
-        flex-wrap: wrap; /* Permite que os containers quebrem para a linha de baixo se necessário */
-        justify-content: center; /* Centraliza os itens horizontalmente */
-        gap: 20px; /* Espaçamento entre os containers */
-        max-width: 100%; /* Para garantir que o conteúdo não estoure o layout */
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            max-width: 100%;
         }
 
         body {
@@ -29,15 +29,15 @@
             text-align: center;
             color: #f7a600;
         }
-        
+
         .container-wrapper {
-        display: flex; /* Habilita o layout Flexbox */
-        justify-content: space-between; /* Espaçamento entre os containers */
-        flex-wrap: wrap; /* Permite que os containers quebrem para a próxima linha */
-        gap: 20px; /* Espaço entre os contêineres */
-        max-width: 900px; /* Define uma largura máxima para o wrapper */
-        width: 100%; /* Garante que o wrapper use 100% da largura disponível */
-}
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            max-width: 900px;
+            width: 100%;
+        }
 
         .container {
             max-width: 700px;
@@ -99,216 +99,262 @@
             }
         }
     </style>
+    <script>
+        const apiKey = 'AIzaSyAAONW1Tgg6qPCMhwFkSkGqtxo3fCyVP3U'; // Substitua aqui pela chave API
+        const sheetID = '1OeCLE4iWfD0JKA0VsPCVmVL98F7TzHkSzzhyoV_FoF4'; // ID da planilha
+        const range = 'Site!A1:H3'; // Seleciona as células de A1 até H3
+
+        // URL da API do Google Sheets
+        const apiURL = `https://sheets.googleapis.com/v4/spreadsheets/${sheetID}/values/${range}?key=${apiKey}`;
+
+        async function carregarValores() {
+            try {
+                const response = await fetch(apiURL);
+                if (!response.ok) {
+                    throw new Error(`Erro HTTP: ${response.status}`);
+                }
+                const data = await response.json();
+
+                // Acessar os valores das células retornadas
+                const valores = data.values;
+
+                // Atribuindo valores da Banca Geral
+                document.getElementById('valor-aportes-geral').innerText = `$${valores[0][0]}`; // A1
+                document.getElementById('valor-lucros-geral').innerText = `$${valores[1][0]}`; // A2
+                document.getElementById('valor-total-geral').innerText = `$${valores[2][0]}`;  // A3
+
+                // Mapeamento para cada membro do VIP
+                const membros = ['jorge', 'alef', 'carson', 'miguel', 'eduardo', 'bernardo', 'juan'];
+                for (let i = 0; i < membros.length; i++) {
+                    const letraColuna = String.fromCharCode(66 + i); // Começa com B (66 em ASCII)
+                    document.getElementById(`valor-aportes-${membros[i]}`).innerText = `$${valores[0][i + 1]}`; // Linha 1
+                    document.getElementById(`valor-lucros-${membros[i]}`).innerText = `$${valores[1][i + 1]}`;  // Linha 2
+                    document.getElementById(`valor-total-${membros[i]}`).innerText = `$${valores[2][i + 1]}`;   // Linha 3
+                }
+            } catch (error) {
+                console.error('Erro ao carregar valores:', error);
+            }
+        }
+    </script>
 </head>
-<body>
+<body onload="carregarValores()">
     <h1>Banca Geral - Distribuição</h1>
 
+    <!-- Banca Geral -->
     <div class="container2">
         <canvas id="bancaGeralChart"></canvas>
         <div class="info">
-            <p>Aportes: $578,44</p>
-            <p>Lucros: +$44,80</p>
-            <p>Total: $617,10</p>
+            <p>Aportes: <span id="valor-aportes-geral" class="error">Carregando...</span></p>
+            <p>Lucros: <span id="valor-lucros-geral" class="error">Carregando...</span></p>
+            <p>Total: <span id="valor-total-geral" class="error">Carregando...</span></p>
         </div>
     </div>
 
     <h2>🏆 Grupo VIP 🏆</h2>
+
+    <!-- Jorge -->
     <div class="container">
-    <div class="container-wrapper">
-        <p style="font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Jorge</p>
-        <p>Aportes: $190,13</p>
-        <p>Lucros: +$26,54</p>
-        <p>Total: $216,67</p>
+        <div class="container-wrapper">
+            <p style="font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Jorge</p>
+            <p>Aportes: <span id="valor-aportes-jorge" class="error">Carregando...</span></p>
+            <p>Lucros: <span id="valor-lucros-jorge" class="error">Carregando...</span></p>
+            <p>Total: <span id="valor-total-jorge" class="error">Carregando...</span></p>
+        </div>
     </div>
-</div>
 
-<div class="container">
-    <div class="container-wrapper">
-        <p style="font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Alef</p>
-        <p>Aportes: $44,76</p>
-        <p>Lucros: +$2,77</p>
-        <p>Total: $47,53</p>
+    <!-- Alef -->
+    <div class="container">
+        <div class="container-wrapper">
+            <p style="font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Alef</p>
+            <p>Aportes: <span id="valor-aportes-alef" class="error">Carregando...</span></p>
+            <p>Lucros: <span id="valor-lucros-alef" class="error">Carregando...</span></p>
+            <p>Total: <span id="valor-total-alef" class="error">Carregando...</span></p>
+        </div>
     </div>
-</div>
 
-<div class="container">
-    <div class="container-wrapper">
-        <p style="font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Carson</p>
-        <p>Aportes: $305,13</p>
-        <p>Lucros: +$8,43</p>
-        <p>Total: $313,56</p>
+    <!-- Carson -->
+    <div class="container">
+        <div class="container-wrapper">
+            <p style="font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Carson</p>
+            <p>Aportes: <span id="valor-aportes-carson" class="error">Carregando...</span></p>
+            <p>Lucros: <span id="valor-lucros-carson" class="error">Carregando...</span></p>
+            <p>Total: <span id="valor-total-carson" class="error">Carregando...</span></p>
+        </div>
     </div>
-</div>
 
-<div class="container">
-    <div class="container-wrapper">
-        <p style="font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Miguel</p>
-        <p>Aportes: $9,16</p>
-        <p>Lucros: $0,22</p>
-        <p>Total: $9,38</p>
+    <!-- Miguel -->
+    <div class="container">
+        <div class="container-wrapper">
+            <p style="font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Miguel</p>
+            <p>Aportes: <span id="valor-aportes-miguel" class="error">Carregando...</span></p>
+            <p>Lucros: <span id="valor-lucros-miguel" class="error">Carregando...</span></p>
+            <p>Total: <span id="valor-total-miguel" class="error">Carregando...</span></p>
+        </div>
     </div>
-</div>
 
-<div class="container">
-    <div class="container-wrapper">
-        <p style="font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Eduardo</p>
-        <p>Aportes: $10,94</p>
-        <p>Lucros: +$0,25</p>
-        <p>Total: $11,19</p>
+    <!-- Eduardo -->
+    <div class="container">
+        <div class="container-wrapper">
+            <p style="font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Eduardo</p>
+            <p>Aportes: <span id="valor-aportes-eduardo" class="error">Carregando...</span></p>
+            <p>Lucros: <span id="valor-lucros-eduardo" class="error">Carregando...</span></p>
+            <p>Total: <span id="valor-total-eduardo" class="error">Carregando...</span></p>
+        </div>
     </div>
-</div>
 
-<div class="container">
-    <div class="container-wrapper">
-        <p style="font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Bernardo</p>
-        <p>Aportes: $9,16</p>
-        <p>Lucros: +$0,22</p>
-        <p>Total: $9,38</p>
+    <!-- Bernardo -->
+    <div class="container">
+        <div class="container-wrapper">
+            <p style="font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Bernardo</p>
+            <p>Aportes: <span id="valor-aportes-bernardo" class="error">Carregando...</span></p>
+            <p>Lucros: <span id="valor-lucros-bernardo" class="error">Carregando...</span></p>
+            <p>Total: <span id="valor-total-bernardo" class="error">Carregando...</span></p>
+        </div>
     </div>
-</div>
 
-<div class="container">
-    <div class="container-wrapper">
-        <p style="font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Juan</p>
-        <p>Aportes: $9,16</p>
-        <p>Lucros: +$0,22</p>
-        <p>Total: $9,38</p>
-    </div>
-</div>
+    <!-- Juan -->
+    <div class="container">
+        <div class="container-wrapper">
+            <p style="font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Juan</p>
+            <p>Aportes: <span id="valor-aportes-juan" class="error">Carregando...</span></p>
+            <p>Lucros: <span id="valor-lucros-juan" class="error">Carregando...</span></p>
+            <p>Total: <span id="valor-total-juan" class="error">Carregando...</span></p>
+        </div>
+      </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        const labels = [
-            '23/08/24', '24/08/24', '25/08/24', '26/08/24', '27/08/24', '28/08/24', '29/08/24', '30/08/24',
-            '31/08/24', '01/09/24', '02/09/24', '03/09/24', '04/09/24', '05/09/24', '06/09/24', '07/09/24',
-            '08/09/24', '09/09/24', '10/09/24', '11/09/24', '12/09/24', '13/09/24', '14/09/24', '15/09/24',
-            '16/09/24', '17/09/24', '18/09/24', '19/09/24', '20/09/24', '21/09/24', '22/09/24', '23/09/24',
-            '24/09/24', '25/09/24', '26/09/24', '27/09/24', '28/09/24', '29/09/24', '30/09/24', '01/10/24',
-            '02/10/24', '03/10/24', '04/10/24', '05/10/24', '06/10/24', '07/10/24', '08/10/24', '09/10/24',
-            '10/10/24', '11/10/24', '12/10/24', '13/10/24', '14/10/24', '15/10/24', '16/10/24', '17/10/24',
-            '18/10/24', '19/10/24', '20/10/24', '21/10/24', '22/10/24', '23/10/24'
-        ];
-
-        const geralData = [
-            0.00, 0.42, 0.47, 0.58, 1.06, 1.57, 1.83, 1.95, 2.28, 2.28, 2.67, 2.67, 2.67, 
-            4.47, 4.57, 5.13, 5.66, 6.15, 7.23, 7.23, 7.64, 8.09, 8.57, 8.57, 9.12, 
-            9.22, 9.22, 9.68, 10.36, 10.61, 10.96, 11.02, 11.8, 12.39, 12.5, 13, 13.62, 
-            14.45, 14.59, 14.59, 22.8, 23.43, 23.91, 26.11, 26.24, 26.88, 28.40, 29.59, 
-            30.19, 30.92, 31.43, 31.43, 31.99, 33.10, 35.34, 36.47, 37.51, 38.05, 39.01, 
-            40.83, 41.75, 44.80
-        ];
-
-        // Calculando os lucros diários
-        const dailyData = geralData.map((value, index, array) => index === 0 ? value : value - array[index - 1]);
-
-        const personalConfig = (color, data, backgroundColor, label) => ({
-            type: 'line',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: label, // Adicionando o label como parâmetro
-                    data: data,
-                    borderColor: color,
-                    borderWidth: 2,
-                    fill: true,
-                    tension: 0.4,
-                    pointRadius: 0,
-                    backgroundColor: backgroundColor,
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                interaction: {
-                    mode: 'index',
-                    intersect: false
-                },
-                plugins: {
-                    legend: { display: true }, // Exibir a legenda
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                return `${context.dataset.label}: $${context.raw.toFixed(2)}`;
-                            }
-                        }
-                    }
-                },
-                scales: {
-                    x: {
-                        title: { display: true, text: 'Data' },
-                        grid: { color: 'rgba(255, 255, 255, 0.1)' }
-                    },
-                    y: {
-                        title: { display: true, text: 'Valor ($)' },
-                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
-                        beginAtZero: true,
-                        ticks: {
-                            color: 'white'
-                        }
-                    }
-                }
-            }
-        });
-
-        const ctx = document.getElementById('bancaGeralChart').getContext('2d');
-        const bancaGeralChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: labels,
-                datasets: [
-                    {
-                        label: 'Lucros Totais',
-                        data: geralData,
-                        borderColor: 'rgba(255, 204, 0, 1)',
-                        backgroundColor: 'rgba(255, 204, 0, 0.4)',
-                        fill: true,
-                        tension: 0.4,
-                        pointRadius: 0,
-                    },
-                    {
-                        label: 'Lucros Diários',
-                        data: dailyData,
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        backgroundColor: 'rgba(75, 192, 192, 0.4)',
-                        fill: true,
-                        tension: 0.4,
-                        pointRadius: 0,
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                interaction: {
-                    mode: 'index',
-                    intersect: false
-                },
-                plugins: {
-                    legend: { display: true }, // Exibir a legenda
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                return `${context.dataset.label}: $${context.raw.toFixed(2)}`;
-                            }
-                        }
-                    }
-                },
-                scales: {
-                    x: {
-                        title: { display: true, text: 'Data' },
-                        grid: { color: 'rgba(255, 255, 255, 0.1)' }
-                    },
-                    y: {
-                        title: { display: true, text: 'Valor ($)' },
-                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
-                        beginAtZero: true,
-                        ticks: {
-                            color: 'white'
-                        }
-                    }
-                }
-            }
-        });
-    </script>
-</body>
-</html>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      <script>
+          const labels = [
+              '23/08/24', '24/08/24', '25/08/24', '26/08/24', '27/08/24', '28/08/24', '29/08/24', '30/08/24',
+              '31/08/24', '01/09/24', '02/09/24', '03/09/24', '04/09/24', '05/09/24', '06/09/24', '07/09/24',
+              '08/09/24', '09/09/24', '10/09/24', '11/09/24', '12/09/24', '13/09/24', '14/09/24', '15/09/24',
+              '16/09/24', '17/09/24', '18/09/24', '19/09/24', '20/09/24', '21/09/24', '22/09/24', '23/09/24',
+              '24/09/24', '25/09/24', '26/09/24', '27/09/24', '28/09/24', '29/09/24', '30/09/24', '01/10/24',
+              '02/10/24', '03/10/24', '04/10/24', '05/10/24', '06/10/24', '07/10/24', '08/10/24', '09/10/24',
+              '10/10/24', '11/10/24', '12/10/24', '13/10/24', '14/10/24', '15/10/24', '16/10/24', '17/10/24',
+              '18/10/24', '19/10/24', '20/10/24', '21/10/24', '22/10/24', '23/10/24'
+          ];
+  
+          const geralData = [
+              0.00, 0.42, 0.47, 0.58, 1.06, 1.57, 1.83, 1.95, 2.28, 2.28, 2.67, 2.67, 2.67, 
+              4.47, 4.57, 5.13, 5.66, 6.15, 7.23, 7.23, 7.64, 8.09, 8.57, 8.57, 9.12, 
+              9.22, 9.22, 9.68, 10.36, 10.61, 10.96, 11.02, 11.8, 12.39, 12.5, 13, 13.62, 
+              14.45, 14.59, 14.59, 22.8, 23.43, 23.91, 26.11, 26.24, 26.88, 28.40, 29.59, 
+              30.19, 30.92, 31.43, 31.43, 31.99, 33.10, 35.34, 36.47, 37.51, 38.05, 39.01, 
+              40.83, 41.75, 44.80
+          ];
+  
+          // Calculando os lucros diários
+          const dailyData = geralData.map((value, index, array) => index === 0 ? value : value - array[index - 1]);
+  
+          const personalConfig = (color, data, backgroundColor, label) => ({
+              type: 'line',
+              data: {
+                  labels: labels,
+                  datasets: [{
+                      label: label, // Adicionando o label como parâmetro
+                      data: data,
+                      borderColor: color,
+                      borderWidth: 2,
+                      fill: true,
+                      tension: 0.4,
+                      pointRadius: 0,
+                      backgroundColor: backgroundColor,
+                  }]
+              },
+              options: {
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  interaction: {
+                      mode: 'index',
+                      intersect: false
+                  },
+                  plugins: {
+                      legend: { display: true }, // Exibir a legenda
+                      tooltip: {
+                          callbacks: {
+                              label: function(context) {
+                                  return `${context.dataset.label}: $${context.raw.toFixed(2)}`;
+                              }
+                          }
+                      }
+                  },
+                  scales: {
+                      x: {
+                          title: { display: true, text: 'Data' },
+                          grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                      },
+                      y: {
+                          title: { display: true, text: 'Valor ($)' },
+                          grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                          beginAtZero: true,
+                          ticks: {
+                              color: 'white'
+                          }
+                      }
+                  }
+              }
+          });
+  
+          const ctx = document.getElementById('bancaGeralChart').getContext('2d');
+          const bancaGeralChart = new Chart(ctx, {
+              type: 'line',
+              data: {
+                  labels: labels,
+                  datasets: [
+                      {
+                          label: 'Lucros Totais',
+                          data: geralData,
+                          borderColor: 'rgba(255, 204, 0, 1)',
+                          backgroundColor: 'rgba(255, 204, 0, 0.4)',
+                          fill: true,
+                          tension: 0.4,
+                          pointRadius: 0,
+                      },
+                      {
+                          label: 'Lucros Diários',
+                          data: dailyData,
+                          borderColor: 'rgba(75, 192, 192, 1)',
+                          backgroundColor: 'rgba(75, 192, 192, 0.4)',
+                          fill: true,
+                          tension: 0.4,
+                          pointRadius: 0,
+                      }
+                  ]
+              },
+              options: {
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  interaction: {
+                      mode: 'index',
+                      intersect: false
+                  },
+                  plugins: {
+                      legend: { display: true }, // Exibir a legenda
+                      tooltip: {
+                          callbacks: {
+                              label: function(context) {
+                                  return `${context.dataset.label}: $${context.raw.toFixed(2)}`;
+                              }
+                          }
+                      }
+                  },
+                  scales: {
+                      x: {
+                          title: { display: true, text: 'Data' },
+                          grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                      },
+                      y: {
+                          title: { display: true, text: 'Valor ($)' },
+                          grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                          beginAtZero: true,
+                          ticks: {
+                              color: 'white'
+                          }
+                      }
+                  }
+              }
+          });
+      </script>
+  </body>
+  </html>
