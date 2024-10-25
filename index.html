@@ -102,7 +102,7 @@
     <script>
         const apiKey = 'AIzaSyAAONW1Tgg6qPCMhwFkSkGqtxo3fCyVP3U'; // Substitua aqui pela chave API
         const sheetID = '1OeCLE4iWfD0JKA0VsPCVmVL98F7TzHkSzzhyoV_FoF4'; // ID da planilha
-        const range = 'Site!A1:H3'; // Seleciona as células de A1 até H3
+        const range = 'Site!A1:I3'; // Seleciona as células de A1 até H3
 
         // URL da API do Google Sheets
         const apiURL = `https://sheets.googleapis.com/v4/spreadsheets/${sheetID}/values/${range}?key=${apiKey}`;
@@ -124,7 +124,7 @@
                 document.getElementById('valor-total-geral').innerText = `$${valores[2][0]}`;  // A3
 
                 // Mapeamento para cada membro do VIP
-                const membros = ['jorge', 'alef', 'carson', 'miguel', 'eduardo', 'bernardo', 'juan'];
+                const membros = ['jorge', 'alef', 'carson', 'miguel', 'eduardo', 'bernardo', 'juan', 'joseane'];
                 for (let i = 0; i < membros.length; i++) {
                     const letraColuna = String.fromCharCode(66 + i); // Começa com B (66 em ASCII)
                     document.getElementById(`valor-aportes-${membros[i]}`).innerText = `$${valores[0][i + 1]}`; // Linha 1
@@ -221,6 +221,16 @@
             <p>Total: <span id="valor-total-juan" class="error">Carregando...</span></p>
         </div>
       </div>
+    
+    <!-- Joseane -->
+    <div class="container">
+        <div class="container-wrapper">
+            <p style="font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Joseane</p>
+            <p>Aportes: <span id="valor-aportes-joseane" class="error">Carregando...</span></p>
+            <p>Lucros: <span style="color: #24af6c">+<span id="valor-lucros-joseane" style="color: #24af6c;" class="error">Carregando...</span></p>
+            <p>Total: <span id="valor-total-joseane" class="error">Carregando...</span></p>
+        </div>
+      </div>
 
       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
       <script>
@@ -241,7 +251,7 @@
               9.22, 9.22, 9.68, 10.36, 10.61, 10.96, 11.02, 11.8, 12.39, 12.5, 13, 13.62, 
               14.45, 14.59, 14.59, 22.8, 23.43, 23.91, 26.11, 26.24, 26.88, 28.40, 29.59, 
               30.19, 30.92, 31.43, 31.43, 31.99, 33.10, 35.34, 36.47, 37.51, 38.05, 39.01, 
-              40.83, 41.75, 44.80, 45.44
+              40.83, 41.75, 44.80, 43.49
           ];
   
           // Calculando os lucros diários
