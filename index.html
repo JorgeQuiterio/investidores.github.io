@@ -6,6 +6,58 @@
     <title>Patrimônio Geral - Distribuição</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
+
+body {
+    background-color: #1c1c1c;
+    color: #fff;
+    font-family: Arial, sans-serif;
+}
+
+.card-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.brilho-dinamico {position: relative;
+color: #24af6c;
+background: linear-gradient(90deg, #fff, #26ff88, #ffffff, #ffffff, #fff);
+background-size: 200%;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+animation: shine 3s infinite linear reverse;
+}
+
+@keyframes shine {
+    from {
+        background-position: 0%;
+    }
+    to {
+        background-position: 200%;
+    }
+}
+.card {
+    background-color: #2e2e2e;
+    border-radius: 15px;
+    padding: 15px;
+    width: 250px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 1px solid #333;
+    text-align: left;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #444;
+    margin: 10px 0;
+}
+
+h2 {
+    color: #ffbf00; /* Cor amarela para o título */
+    font-size: 24px;
+}
+
         .containers-wrapper {
             display: flex;
             flex-wrap: wrap;
@@ -32,17 +84,17 @@
 
         .container-wrapper {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             flex-wrap: wrap;
-            gap: 20px;
             max-width: 900px;
             width: 100%;
+            justify-content: space-around;
         }
 
         .container {
-            max-width: 700px;
+            max-width: 200px;
             width: 100%;
-            margin: 20px auto;
+            margin: 20px;
             padding: 15px;
             background: linear-gradient(145deg, #151515, #333333);
             border-radius: 40px;
@@ -50,6 +102,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: space-around;
         }
 
         .container2 {
@@ -102,7 +155,7 @@
     <script>
         const apiKey = 'AIzaSyAAONW1Tgg6qPCMhwFkSkGqtxo3fCyVP3U'; // Substitua aqui pela chave API
         const sheetID = '1OeCLE4iWfD0JKA0VsPCVmVL98F7TzHkSzzhyoV_FoF4'; // ID da planilha
-        const range = 'Site!A1:L3'; // Seleciona as células de L1 até L3
+        const range = 'Site!A1:L7'; // Seleciona as células de A1 até L3
 
         // URL da API do Google Sheets
         const apiURL = `https://sheets.googleapis.com/v4/spreadsheets/${sheetID}/values/${range}?key=${apiKey}`;
@@ -130,6 +183,9 @@
                     document.getElementById(`valor-aportes-${membros[i]}`).innerText = `$${valores[0][i + 1]}`; // Linha 1
                     document.getElementById(`valor-lucros-${membros[i]}`).innerText = `$${valores[1][i + 1]}`;  // Linha 2
                     document.getElementById(`valor-total-${membros[i]}`).innerText = `$${valores[2][i + 1]}`;   // Linha 3
+                    document.getElementById(`valor-aportes2-${membros[i]}`).innerText = `R$${valores[4][i + 1]}`; // Linha 5
+                    document.getElementById(`valor-lucros2-${membros[i]}`).innerText = `R$${valores[5][i + 1]}`;  // Linha 6
+                    document.getElementById(`valor-total2-${membros[i]}`).innerText = `R$${valores[6][i + 1]}`;   // Linha 7
                 }
             } catch (error) {
                 console.error('Erro ao carregar valores:', error);
@@ -150,115 +206,183 @@
         </div>
     </div>
 
-    <h2>🏆 Grupo VIP 🏆</h2>
+    
+        <h2>🏆 Grupo VIP 🏆</h2>
+        <div class="card-container">
+        
 
     <!-- Jorge -->
     <div class="container">
-        <div class="container-wrapper">
-            <p style="font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Jorge</p>
-            <p>Aportes: <span id="valor-aportes-jorge" class="error">Carregando...</span></p>
-            <p>Lucros: <span style="color: #24af6c">+</span><span id="valor-lucros-jorge" style="color: #24af6c;" class="error">Carregando...</span></p>
-            <p>Total: <span id="valor-total-jorge" class="error">Carregando...</span></p>
-        </div>
-    </div>
+            <div class="container-wrapper">
+            <h3 style="font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Jorge<hr>
+            <p>Moeda: DOLAR</p>
+            <p>Aportes: <span style="color: #24af6c"; id="valor-aportes-jorge" class="error">Carregando...</span></p>
+            <p>Lucros: <span style="color: #24af6c">+<span id="valor-lucros-jorge" class="error">Carregando...</span></p>
+            <p>Total: <span style="color: #24af6c"; id="valor-total-jorge" class="error">Carregando...</span></p>
+            <div class="container-wrapper"></div><hr>
+            <p>Moeda: REAL</p>
+            <p>Aportes: <span style="color: #24af6c"; id="valor-aportes2-jorge" class="error">Carregando...</span></p>
+            <p>Lucros: <span style="color: #24af6c">+<span id="valor-lucros2-jorge" class="error">Carregando...</span></p>
+            <p>Total: <span style="color: #24af6c"; id="valor-total2-jorge" class="error">Carregando...</span></p>
+        </div></div>
 
-    <!-- Alef -->
-    <div class="container">
-        <div class="container-wrapper">
-            <p style="font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Alef</p>
-            <p>Aportes: <span id="valor-aportes-alef" class="error">Carregando...</span></p>
-            <p>Lucros: <span style="color: #24af6c">+<span id="valor-lucros-alef" style="color: #24af6c;" class="error">Carregando...</span></p>
-            <p>Total: <span id="valor-total-alef" class="error">Carregando...</span></p>
+        <!-- Alef -->
+        <div class="container">
+            <div class="container-wrapper">
+            <h3 style="font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Alef<hr>
+            <p>Moeda: DOLAR</p>
+            <p>Aportes: <span style="color: #24af6c"; id="valor-aportes-alef" class="error">Carregando...</span></p>
+            <p>Lucros: <span style="color: #24af6c">+<span id="valor-lucros-alef" class="error">Carregando...</span></p>
+            <p>Total: <span style="color: #24af6c"; id="valor-total-alef" class="error">Carregando...</span></p>
+            <div class="container-wrapper"></div><hr>
+            <p>Moeda: REAL</p>
+            <p>Aportes: <span style="color: #24af6c"; id="valor-aportes2-alef" class="error">Carregando...</span></p>
+            <p>Lucros: <span style="color: #24af6c">+<span id="valor-lucros2-alef" class="error">Carregando...</span></p>
+            <p>Total: <span style="color: #24af6c"; style="color: #24af6c"; id="valor-total2-alef" class="error">Carregando...</span></p>
         </div>
     </div>
 
     <!-- Carson -->
     <div class="container">
         <div class="container-wrapper">
-            <p style="font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Carson</p>
-            <p>Aportes: <span id="valor-aportes-carson" class="error">Carregando...</span></p>
-            <p>Lucros: <span style="color: #24af6c">+<span id="valor-lucros-carson" style="color: #24af6c;" class="error">Carregando...</span></p>
-            <p>Total: <span id="valor-total-carson" class="error">Carregando...</span></p>
+            <h3 style="font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Carson<hr>
+            <p>Moeda: DOLAR</p>
+            <p>Aportes: <span style="color: #24af6c"; id="valor-aportes-carson" class="error">Carregando...</span></p>
+            <p>Lucros: <span style="color: #24af6c">+<span id="valor-lucros-carson" class="error">Carregando...</span></p>
+            <p>Total: <span style="color: #24af6c"; id="valor-total-carson" class="error">Carregando...</span></p>
+            <div class="container-wrapper"></div><hr>
+            <p>Moeda: REAL</p>
+            <p>Aportes: <span style="color: #24af6c"; id="valor-aportes2-carson" class="error">Carregando...</span></p>
+            <p>Lucros: <span style="color: #24af6c">+<span id="valor-lucros2-carson" class="error">Carregando...</span></p>
+            <p>Total: <span style="color: #24af6c"; id="valor-total2-carson" class="error">Carregando...</span></p>
         </div>
     </div>
 
     <!-- Miguel -->
     <div class="container">
         <div class="container-wrapper">
-            <p style="font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Miguel</p>
-            <p>Aportes: <span id="valor-aportes-miguel" class="error">Carregando...</span></p>
-            <p>Lucros: <span style="color: #24af6c">+<span id="valor-lucros-miguel" style="color: #24af6c;" class="error">Carregando...</span></p>
-            <p>Total: <span id="valor-total-miguel" class="error">Carregando...</span></p>
+            <h3 style="font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Miguel<hr>
+            <p>Moeda: DOLAR</p>
+            <p>Aportes: <span style="color: #24af6c"; id="valor-aportes-miguel" class="error">Carregando...</span></p>
+            <p>Lucros: <span style="color: #24af6c">+<span id="valor-lucros-miguel" class="error">Carregando...</span></p>
+            <p>Total: <span style="color: #24af6c"; id="valor-total-miguel" class="error">Carregando...</span></p>
+            <div class="container-wrapper"></div><hr>
+            <p>Moeda: REAL</p>
+            <p>Aportes: <span style="color: #24af6c"; id="valor-aportes2-miguel" class="error">Carregando...</span></p>
+            <p>Lucros: <span style="color: #24af6c">+<span id="valor-lucros2-miguel" class="error">Carregando...</span></p>
+            <p>Total: <span style="color: #24af6c"; id="valor-total2-miguel" class="error">Carregando...</span></p>
         </div>
     </div>
 
     <!-- Eduardo -->
     <div class="container">
         <div class="container-wrapper">
-            <p style="font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Eduardo</p>
-            <p>Aportes: <span id="valor-aportes-eduardo" class="error">Carregando...</span></p>
-            <p>Lucros: <span style="color: #24af6c">+<span id="valor-lucros-eduardo" style="color: #24af6c;" class="error">Carregando...</span></p>
-            <p>Total: <span id="valor-total-eduardo" class="error">Carregando...</span></p>
+            <h3 style="font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Eduardo<hr>
+            <p>Moeda: DOLAR</p>
+            <p>Aportes: <span style="color: #24af6c"; id="valor-aportes-eduardo" class="error">Carregando...</span></p>
+            <p>Lucros: <span style="color: #24af6c">+<span id="valor-lucros-eduardo" class="error">Carregando...</span></p>
+            <p>Total: <span style="color: #24af6c"; id="valor-total-eduardo" class="error">Carregando...</span></p>
+            <div class="container-wrapper"></div><hr>
+            <p>Moeda: REAL</p>
+            <p>Aportes: <span style="color: #24af6c"; id="valor-aportes2-eduardo" class="error">Carregando...</span></p>
+            <p>Lucros: <span style="color: #24af6c">+<span id="valor-lucros2-eduardo" class="error">Carregando...</span></p>
+            <p>Total: <span style="color: #24af6c"; id="valor-total2-eduardo" class="error">Carregando...</span></p>
         </div>
     </div>
 
     <!-- Bernardo -->
     <div class="container">
         <div class="container-wrapper">
-            <p style="font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Bernardo</p>
-            <p>Aportes: <span id="valor-aportes-bernardo" class="error">Carregando...</span></p>
-            <p>Lucros: <span style="color: #24af6c">+<span id="valor-lucros-bernardo" style="color: #24af6c;" class="error">Carregando...</span></p>
-            <p>Total: <span id="valor-total-bernardo" class="error">Carregando...</span></p>
+            <h3 style="font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Bernardo<hr>
+            <p>Moeda: DOLAR</p>
+            <p>Aportes: <span style="color: #24af6c"; id="valor-aportes-bernardo" class="error">Carregando...</span></p>
+            <p>Lucros: <span style="color: #24af6c">+<span id="valor-lucros-bernardo" class="error">Carregando...</span></p>
+            <p>Total: <span style="color: #24af6c"; id="valor-total-bernardo" class="error">Carregando...</span></p>
+            <div class="container-wrapper"></div><hr>
+            <p>Moeda: REAL</p>
+            <p>Aportes: <span style="color: #24af6c"; id="valor-aportes2-bernardo" class="error">Carregando...</span></p>
+            <p>Lucros: <span style="color: #24af6c">+<span id="valor-lucros2-bernardo" class="error">Carregando...</span></p>
+            <p>Total: <span style="color: #24af6c"; id="valor-total2-bernardo" class="error">Carregando...</span></p>
         </div>
     </div>
 
     <!-- Juan -->
     <div class="container">
         <div class="container-wrapper">
-            <p style="font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Juan</p>
-            <p>Aportes: <span id="valor-aportes-juan" class="error">Carregando...</span></p>
-            <p>Lucros: <span style="color: #24af6c">+<span id="valor-lucros-juan" style="color: #24af6c;" class="error">Carregando...</span></p>
-            <p>Total: <span id="valor-total-juan" class="error">Carregando...</span></p>
+            <h3 style="font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Juan<hr>
+            <p>Moeda: DOLAR</p>
+            <p>Aportes: <span style="color: #24af6c"; id="valor-aportes-juan" class="error">Carregando...</span></p>
+            <p>Lucros: <span style="color: #24af6c">+<span id="valor-lucros-juan" class="error">Carregando...</span></p>
+            <p>Total: <span style="color: #24af6c"; id="valor-total-juan" class="error">Carregando...</span></p>
+            <div class="container-wrapper"></div><hr>
+            <p>Moeda: REAL</p>
+            <p>Aportes: <span style="color: #24af6c"; id="valor-aportes2-juan" class="error">Carregando...</span></p>
+            <p>Lucros: <span style="color: #24af6c">+<span id="valor-lucros2-juan" class="error">Carregando...</span></p>
+            <p>Total: <span style="color: #24af6c"; id="valor-total2-juan" class="error">Carregando...</span></p>
         </div>
       </div>
     
     <!-- Joseane -->
     <div class="container">
         <div class="container-wrapper">
-            <p style="font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Joseane</p>
-            <p>Aportes: <span id="valor-aportes-joseane" class="error">Carregando...</span></p>
-            <p>Lucros: <span style="color: #24af6c">+<span id="valor-lucros-joseane" style="color: #24af6c;" class="error">Carregando...</span></p>
-            <p>Total: <span id="valor-total-joseane" class="error">Carregando...</span></p>
+            <h3 style="font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Joseane<hr>
+            <p>Moeda: DOLAR</p>
+            <p>Aportes: <span style="color: #24af6c"; id="valor-aportes-joseane" class="error">Carregando...</span></p>
+            <p>Lucros: <span style="color: #24af6c">+<span id="valor-lucros-joseane" class="error">Carregando...</span></p>
+            <p>Total: <span style="color: #24af6c"; id="valor-total-joseane" class="error">Carregando...</span></p>
+            <div class="container-wrapper"></div><hr>
+            <p>Moeda: REAL</p>
+            <p>Aportes: <span style="color: #24af6c"; id="valor-aportes2-joseane" class="error">Carregando...</span></p>
+            <p>Lucros: <span style="color: #24af6c">+<span id="valor-lucros2-joseane" class="error">Carregando...</span></p>
+            <p>Total: <span style="color: #24af6c"; id="valor-total2-joseane" class="error">Carregando...</span></p> 
         </div>
-      </div>
+    </div>
 
     <!-- Rita -->
     <div class="container">
         <div class="container-wrapper">
-            <p style="font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Rita</p>
-            <p>Aportes: <span id="valor-aportes-rita" class="error">Carregando...</span></p>
-            <p>Lucros: <span style="color: #24af6c">+<span id="valor-lucros-rita" style="color: #24af6c;" class="error">Carregando...</span></p>
-            <p>Total: <span id="valor-total-rita" class="error">Carregando...</span></p>
+            <h3 style="font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Rita<hr>
+            <p>Moeda: DOLAR</p>
+            <p>Aportes: <span style="color: #24af6c"; id="valor-aportes-rita" class="error">Carregando...</span></p>
+            <p>Lucros: <span style="color: #24af6c">+<span id="valor-lucros-rita" class="error">Carregando...</span></p>
+            <p>Total: <span style="color: #24af6c"; id="valor-total-rita" class="error">Carregando...</span></p>
+            <div class="container-wrapper"></div><hr>
+            <p>Moeda: REAL</p>
+            <p>Aportes: <span style="color: #24af6c"; id="valor-aportes2-rita" class="error">Carregando...</span></p>
+            <p>Lucros: <span style="color: #24af6c">+<span id="valor-lucros2-rita" class="error">Carregando...</span></p>
+            <p>Total: <span style="color: #24af6c"; id="valor-total2-rita" class="error">Carregando...</span></p>
         </div>
       </div>
 
       <!-- Lucas -->
     <div class="container">
         <div class="container-wrapper">
-            <p style="font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Lucas</p>
-            <p>Aportes: <span id="valor-aportes-lucas" class="error">Carregando...</span></p>
-            <p>Lucros: <span style="color: #24af6c">+<span id="valor-lucros-lucas" style="color: #24af6c;" class="error">Carregando...</span></p>
-            <p>Total: <span id="valor-total-lucas" class="error">Carregando...</span></p>
+            <h3 style="font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Lucas<hr>
+            <p>Moeda: DOLAR</p>
+            <p>Aportes: <span style="color: #24af6c"; id="valor-aportes-lucas" class="error">Carregando...</span></p>
+            <p>Lucros: <span style="color: #24af6c">+<span id="valor-lucros-lucas" class="error">Carregando...</span></p>
+            <p>Total: <span style="color: #24af6c"; id="valor-total-lucas" class="error">Carregando...</span></p>
+            <div class="container-wrapper"></div><hr>
+            <p>Moeda: REAL</p>
+            <p>Aportes: <span style="color: #24af6c"; id="valor-aportes2-lucas" class="error">Carregando...</span></p>
+            <p>Lucros: <span style="color: #24af6c">+<span id="valor-lucros2-lucas" class="error">Carregando...</span></p>
+            <p>Total: <span style="color: #24af6c"; id="valor-total2-lucas" class="error">Carregando...</span></p>
         </div>
       </div>
 
     <!-- Anna -->
     <div class="container">
         <div class="container-wrapper">
-            <p style="font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Anna</p>
-            <p>Aportes: <span id="valor-aportes-anna" class="error">Carregando...</span></p>
-            <p>Lucros: <span style="color: #24af6c">+<span id="valor-lucros-anna" style="color: #24af6c;" class="error">Carregando...</span></p>
-            <p>Total: <span id="valor-total-anna" class="error">Carregando...</span></p>
+            <h3 style="font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Anna<hr>
+            <p>Moeda: DOLAR</p>
+            <p>Aportes: <span style="color: #24af6c"; id="valor-aportes-anna" class="error">Carregando...</span></p>
+            <p>Lucros: <span style="color: #24af6c">+<span id="valor-lucros-anna" class="error">Carregando...</span></p>
+            <p>Total: <span style="color: #24af6c"; id="valor-total-anna" class="error">Carregando...</span></p>
+            <div class="container-wrapper"></div><hr>
+            <p>Moeda: REAL</p>
+            <p>Aportes: <span style="color: #24af6c"; id="valor-aportes2-anna" class="error">Carregando...</span></p>
+            <p>Lucros: <span style="color: #24af6c">+<span id="valor-lucros2-anna" class="error">Carregando...</span></p>
+            <p>Total: <span style="color: #24af6c"; id="valor-total2-anna" class="error">Carregando...</span></p>
         </div>
       </div>
 
@@ -274,7 +398,7 @@
               '10/10/24', '11/10/24', '12/10/24', '13/10/24', '14/10/24', '15/10/24', '16/10/24', '17/10/24',
               '18/10/24', '19/10/24', '20/10/24', '21/10/24', '22/10/24', '23/10/24', '24/10/24', '25/10/24',
               '26/10/24', '27/10/24', '28/10/24', '29/10/24', '30/10/24', '31/10/24', '01/11/24', '02/11/24',
-              '03/11/24', '04/11/24', '05/11/24', '06/11/24', '07/11/24', '08/11/24'
+              '03/11/24', '04/11/24', '05/11/24', '06/11/24', '07/11/24', '08/11/24', '09/11/24'
           ];
   
           const geralData = [
@@ -284,7 +408,7 @@
               14.45, 14.59, 14.59, 22.8, 23.43, 23.91, 26.11, 26.24, 26.88, 28.40, 29.59, 
               30.19, 30.92, 31.43, 31.43, 31.99, 33.10, 35.34, 36.47, 37.51, 38.05, 39.01, 
               40.83, 41.43, 41.75, 45.21, 45.44, 47.86, 48.65, 49.34, 50.47, 52.73, 53.20,
-              54.54, 55.75, 56.47, 57.89, 62.09, 64.59, 71.5, 72.54, 75.78
+              54.54, 55.75, 56.47, 57.89, 62.09, 64.59, 71.5, 72.54, 75.78, 79
           ];
   
           // Calculando os lucros diários
